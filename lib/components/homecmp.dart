@@ -3,9 +3,10 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 
 class MainCard extends StatefulWidget {
-  const MainCard({super.key, required this.tempData});
+  const MainCard({super.key, required this.tempData, required this.skyData});
 
   final String tempData;
+  final String skyData;
 
   @override
   State<MainCard> createState() => _MainCardState();
@@ -35,14 +36,14 @@ class _MainCardState extends State<MainCard> {
                   const SizedBox(
                     height: 16,
                   ),
-                  const Icon(Icons.cloud, size: 48),
+                  Icon(widget.skyData=="Clouds"||widget.skyData=="Rain"?Icons.cloud:Icons.sunny, size: 48),
                   const SizedBox(
                     height: 16,
                   ),
-                  const Text(
-                    "Rain",
+                   Text(
+                    widget.skyData,
                     style:
-                        TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
+                        const TextStyle(fontSize: 25, fontWeight: FontWeight.normal),
                   )
                 ],
               ),
@@ -78,8 +79,9 @@ class ForecastHourlyItem extends StatelessWidget {
             children: [
               Text(
                 timeValue,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(
                 height: 10,
@@ -114,33 +116,36 @@ class AdditionalInfoItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 120,
-      child: Card(
-        elevation: 10,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-        child: Padding(
-          padding: const EdgeInsets.all(10.0),
-          child: Column(
-            children: [
-              Icon(icon, size: 36),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                weatherValueString,
-                style: const TextStyle(
-                    fontSize: 13, fontWeight: FontWeight.normal),
-              ),
-              const SizedBox(
-                height: 10,
-              ),
-              Text(
-                intValue,
-                style:
-                    const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              )
-            ],
+    return Padding(
+      padding: const EdgeInsets.all(5.0),
+      child: SizedBox(
+        width: 120,
+        child: Card(
+          elevation: 10,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+          child: Padding(
+            padding: const EdgeInsets.all(10.0),
+            child: Column(
+              children: [
+                Icon(icon, size: 36),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  weatherValueString,
+                  style: const TextStyle(
+                      fontSize: 13, fontWeight: FontWeight.normal),
+                ),
+                const SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  intValue,
+                  style:
+                      const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                )
+              ],
+            ),
           ),
         ),
       ),
